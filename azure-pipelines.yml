@@ -6,10 +6,13 @@
 trigger:
 - master
 
-pool:
+variables:
+-group: my-vars
   vmImage: ubuntu-latest
 
 steps:
+- script: echo $(uname)
+  displayname: echo $(uname)
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
