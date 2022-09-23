@@ -30,7 +30,7 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 - task: Maven@3
-  condition: and(succeeded(), eq('${{ parameters.releasetype }}', 'testcentervm5'))
+  condition: and(succeeded(), eq('${{ parameters.releasetype }}', 'testcentervm'))
   inputs:
     mavenPomFile: 'pom.xml'
     publishJUnitResults: true
@@ -41,7 +41,7 @@ steps:
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
 - task: CopyFiles@2
-  condition: and(succeeded(), eq('${{ parameters.releasetype }}', 'testcentervm6'))
+  condition: and(succeeded(), eq('${{ parameters.releasetype }}', 'testcentervm6','testcentervm'))
   inputs:
     Contents: '**/*.war'
     TargetFolder: 'build.artifactstagingdirectory)'
