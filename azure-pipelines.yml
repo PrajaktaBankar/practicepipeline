@@ -7,47 +7,12 @@ trigger:
 - master
 
 parameters:
-  - name: releasetype
-    displayName: 'action'
-    type: string
-    default: "testcentervm"
-    values:
-      - "testcentervm5"
-      - "testcentervm6"
-      - "testcentervm"
-
-
-pool:
-  vmImage: ubuntu-latest
-
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-- task: Maven@3
-  condition: or(eq('${{ parameters.releasetype }}', 'testcentervm5'),eq('${{ parameters.releasetype }}', 'testcentervm'))
-  inputs:
-    mavenPomFile: 'pom.xml'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    javaHomeOption: 'JDKVersion'
-    mavenVersionOption: 'Default'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false
-- task: CopyFiles@2
-  condition: or(eq('${{ parameters.releasetype }}', 'testcentervm6'),eq('${{ parameters.releasetype }}', 'testcentervm'))
-  inputs:
-    Contents: '**/*.war'
-    TargetFolder: 'build.artifactstagingdirectory)'
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-    
+  version: ""
+jobs
+- job: build
+  displayName: "Build .NET Application
+  pool: 
+    vmImage: "ubuntu-latest"
+  steps:
+    - ${{ if ne(parameters.version, '1.0') }}:
+        - script: "echo 'success!'"
